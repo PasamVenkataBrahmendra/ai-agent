@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(to right, #EEEEFF, #CBC7FF);
+    padding: 20px;
+}
+
+/* Chatbot Container */
+.chatbot {
+    width: 800px;
+    height: 600px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Chatbot Header */
+.chatbot-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: cornflowerblue;
+    padding: 15px 20px;
+    color: white;
+    font-weight: 600;
+}
+
+.chatbot-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Close Button */
+.chatbot-close {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.chatbot-close:hover {
+    transform: scale(1.2);
+}
+
+/* Chatbot Body */
+.chatbot-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    background: #f9f9ff;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Chat Messages */
+.message-bot, .message-user {
+    padding: 10px 15px;
+    border-radius: 10px;
+    max-width: 80%;
+    margin-bottom: 10px;
+}
+
+.message-bot {
+    background: #dfe8ff;
+    color: #2c3e50;
+    align-self: flex-start;
+}
+
+.message-user {
+    background: #a0c4ff;
+    color: white;
+    align-self: flex-end;
+}
+
+/* Chatbot Footer */
+.chatbot-footer {
+    padding: 10px;
+    background: #eef1ff;
+    border-top: 1px solid #ddd;
+    display: flex;
+}
+
+/* Input Container */
+.input-container {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+/* Message Input */
+.message-input {
+    flex: 1;
+    min-height: 45px;
+    border: 1px solid #ccc;
+    padding: 12px 50px 12px 12px;
+    font-size: 14px;
+    border-radius: 25px;
+    width: 100%;
+}
+
+/* File Upload Button */
+.file-upload {
+    position: absolute;
+    right: 45px;
+    cursor: pointer;
+    color: cornflowerblue;
+    font-size: 18px;
+}
+
+.file-upload:hover {
+    color: #567bc7;
+}
+
+/* Send Button */
+.send-button {
+    position: absolute;
+    right: 10px;
+    background: cornflowerblue;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-size: 16px;
+}
+
+.send-button:hover {
+    background: #567bc7;
+}
+
+/* Hide File Input */
+#file-input {
+    display: none;
+}
