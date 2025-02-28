@@ -3,8 +3,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const chatForm = document.querySelector(".chat-form");
     const chatBody = document.querySelector(".chatbot-body");
     const chatbotContainer = document.querySelector(".chatbot");
-    const sendButton = document.querySelector(".send-button"); 
-    const fileInput = document.querySelector("#file-input"); 
+    const sendButton = document.querySelector(".material-symbols-outlined[aria-label='arrow_upward']");
+    const fileInput = document.querySelector("#file-input");
+    const cameraBtn = document.querySelector("#camera-btn");
+
+    // Camera Elements
+    const video = document.createElement("video");
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
 
     // Auto-expand textarea
     messageInput.addEventListener("input", function () {
@@ -12,15 +18,60 @@ document.addEventListener("DOMContentLoaded", () => {
         this.style.height = this.scrollHeight + "px";
     });
 
-    // Replace with your API key
-    const API_KEY = "AIzaSyA4MEUO-_pJf_IZXQp_OkSJVczLYn6FrM4"; 
+    const API_KEY = "AIzaSyA4MEUO-_pJf_IZXQp_OkSJVczLYn6FrM4";
     const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
-    // ✅ Handle File Upload
+    // ✅ Handle File Upload and Analysis
     fileInput.addEventListener("change", function () {
         if (fileInput.files.length > 0) {
-            const fileName = fileInput.files[0].name;
+            const file = fileInput.files[0];
+            const fileName = file.name;
             addMessage(`📎 File Uploaded: ${fileName}`, "user");
+
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const fileContent = e.target.result;
+                analyzeFileContent(fileContent, file.type);
+            };
+
+            if (file.type.includes("text") || file.type.includes("json")) {
+                reader.readAsText(file);
+            } else if (file.type.includes("pdf")) {
+                reader.readAsDataURL(file);
+            } else {
+                addMessage("⚠️ Unsupported file format.", "bot");
+            }
+        }
+    });
+
+    // ✅ Handle Camera Capture and Image Analysis
+    cameraBtn.addEventListener("click", async function () {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+            video.play();
+
+            const captureBtn = document.createElement("button");
+            captureBtn.textContent = "📸 Capture";
+            captureBtn.classList.add("capture-btn");
+            chatbotContainer.appendChild(captureBtn);
+
+            captureBtn.addEventListener("click", () => {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                const imageData = canvas.toDataURL("image/png");
+                analyzeImage(imageData);
+
+                stream.getTracks().forEach(track => track.stop());
+                chatbotContainer.removeChild(captureBtn);
+            });
+
+        } catch (error) {
+            console.error("Camera access denied:", error);
+            addMessage("🚫 Unable to access camera.", "bot");
         }
     });
 
@@ -31,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         addMessage(userMessage, "user");
         messageInput.value = "";
-        messageInput.style.height = "40px"; 
+        messageInput.style.height = "40px";
 
         showThinkingEffect();
 
@@ -93,6 +144,67 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const data = await response.json();
         return data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't understand that. 🤖";
+    }
+
+    // ✅ Analyze Captured Image
+    async function analyzeImage(base64Image) {
+        const requestBody = {
+            contents: [
+                {
+                    parts: [
+                        {
+                            inline_data: {
+                                mime_type: "image/png",
+                                data: base64Image.split(",")[1]
+                            }
+                        }
+                    ]
+                }
+            ]
+        };
+
+        try {
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(requestBody)
+            });
+
+            if (!response.ok) throw new Error("Failed to fetch response");
+
+            const data = await response.json();
+            const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text || "No text extracted.";
+            addMessage(`📷 Image Analysis: ${generatedText}`, "bot");
+
+        } catch (error) {
+            console.error("Error:", error);
+            addMessage("❌ Error analyzing image.", "bot");
+        }
+    }
+
+    // ✅ Analyze File Content
+    async function analyzeFileContent(fileContent, fileType) {
+        const requestBody = {
+            contents: [{ parts: [{ text: fileContent }] }]
+        };
+
+        try {
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(requestBody)
+            });
+
+            if (!response.ok) throw new Error("Failed to fetch response");
+
+            const data = await response.json();
+            const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text || "Couldn't extract information.";
+            addMessage(`📂 File Analysis: ${generatedText}`, "bot");
+
+        } catch (error) {
+            console.error("Error:", error);
+            addMessage("❌ Error analyzing file.", "bot");
+        }
     }
 
     // Prevent chatbot from closing unexpectedly
