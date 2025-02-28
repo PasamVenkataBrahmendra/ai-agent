@@ -46,20 +46,6 @@ body {
     gap: 10px;
 }
 
-/* Close Button */
-.chatbot-close {
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.chatbot-close:hover {
-    transform: scale(1.2);
-}
-
 /* Chatbot Body */
 .chatbot-body {
     flex: 1;
@@ -104,51 +90,87 @@ body {
     flex: 1;
     display: flex;
     align-items: center;
+    width: 100%;
+    border-radius: 25px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background: white;
 }
 
 /* Message Input */
 .message-input {
     flex: 1;
-    min-height: 45px;
-    border: 1px solid #ccc;
-    padding: 12px 50px 12px 12px;
+    min-height: 50px;
+    border: none;
+    padding: 12px;
     font-size: 14px;
+    width: 500px;
+    background: white;
+    transition: border 0.3s;
     border-radius: 25px;
-    width: 100%;
 }
 
-/* File Upload Button */
-.file-upload {
-    position: absolute;
-    right: 45px;
-    cursor: pointer;
-    color: cornflowerblue;
-    font-size: 18px;
+.message-input:focus {
+    outline: none;
 }
 
-.file-upload:hover {
-    color: #567bc7;
+/* Chat Controls */
+.chatbot-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 10px;
 }
 
-/* Send Button */
-.send-button {
-    position: absolute;
-    right: 10px;
-    background: cornflowerblue;
-    color: white;
+/* Control Buttons (File, Camera, Send) */
+.chatbot-controls button {
+    background: white;
     border: none;
     padding: 8px;
     border-radius: 50%;
     cursor: pointer;
-    transition: background 0.3s;
-    font-size: 16px;
+    font-size: 18px;
+    transition: background 0.3s, color 0.3s;
+    color: cornflowerblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.send-button:hover {
-    background: #567bc7;
+.chatbot-controls button:hover {
+    background: cornflowerblue;
+    color: white;
 }
 
 /* Hide File Input */
 #file-input {
     display: none;
 }
+/* Chat Controls */
+.chatbot-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 10px;
+}
+
+/* File Input (Hidden) */
+#file-input {
+    display: none;
+}
+
+/* Label for File Upload */
+.chatbot-controls label {
+    cursor: pointer;
+    color: cornflowerblue;
+    font-size: 20px;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background 0.3s, color 0.3s;
+}
+
+.chatbot-controls label:hover {
+    background: cornflowerblue;
+    color: white;
+}
+
