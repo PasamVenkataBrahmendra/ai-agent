@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI AGENT</title>
+    <title>AI Chatbot</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -16,20 +16,18 @@
                 </svg>
                 <h2 class="logo">CHAT WITH AI</h2>
             </div>
-            <button class="chatbot-close material-symbols-outlined">close</button>
         </div>
         
-        <!-- Chatbot Body -->
         <div class="chatbot-body">
             <div class="message-bot">
-                <div class="message-text">Hey there!<br />How can I help you?</div>
+                <div class="message-text">Hey there!<br>How can I help you?</div>
             </div>
             <div class="typing">
                 <span></span><span></span><span></span>
             </div>
         </div>
 
-        <!-- Camera Section (Hidden by Default) -->
+        <!-- Camera Section -->
         <div class="camera-container" style="display: none;">
             <video id="video" autoplay></video>
             <button id="capture" class="material-symbols-outlined">photo_camera</button>
@@ -37,22 +35,21 @@
             <img id="photo" src="" alt="Captured Image" style="display: none;">
         </div>
 
-  <!-- Chatbot Footer -->
-  <div class="chatbot-footer">
-    <form action="#" class="chat-form">
-        <div class="input-container">
-            <textarea placeholder="Message..." class="message-input"></textarea>
-            <div class="chatbot-controls">
-                 <!-- File Upload Button (Fixed) -->
-                 <label for="file-input" class="material-symbols-outlined">attach_file</label>
-                 <input type="file" id="file-input" accept="image/*">
-                <button type="button" id="camera-btn" class="material-symbols-outlined">photo_camera</button>
-                <button type="submit" class="material-symbols-outlined">arrow_upward</button>
-            </div>
+        <div class="chatbot-footer">
+            <form action="#" class="chat-form">
+                <div class="input-container">
+                    <textarea placeholder="Message..." class="message-input"></textarea>
+                    <div class="chatbot-controls">
+                        <label for="file-input" class="material-symbols-outlined">attach_file</label>
+                        <input type="file" id="file-input" accept="image/*">
+                        <button type="button" id="camera-btn" class="material-symbols-outlined">photo_camera</button>
+                        <button type="submit" id="send-btn" class="material-symbols-outlined">arrow_upward</button>
+                    </div>
+                </div>
+            </form>
         </div>
-    </form>
-</div>
-</div>
+    </div>
+
 <script src="script.js"></script>
 </body>
-</html>       
+</html>
