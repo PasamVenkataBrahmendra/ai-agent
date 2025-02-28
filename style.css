@@ -173,12 +173,30 @@ body {
     background: cornflowerblue;
     color: white;
 }
-/* Responsive */
-@media (max-width: 600px) {
+/* Responsive Design */
+@media screen and (max-width: 600px) {
     .chatbot {
-        height: 100vh;
         width: 100%;
+        height: 100vh;
         border-radius: 0;
+        max-width: none;
+        max-height: none;
+    }
+
+    .chatbot-body {
+        padding: 5px;
+    }
+
+    .message-bot, .message-user {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .chatbot-footer {
+        padding: 5px;
+    }
+
+    .message-input {
+        font-size: 14px;
     }
 }
-
