@@ -173,4 +173,12 @@ body {
     background: cornflowerblue;
     color: white;
 }
+/* Responsive */
+@media (max-width: 600px) {
+    .chatbot {
+        height: 100vh;
+        width: 100%;
+        border-radius: 0;
+    }
+}
 
