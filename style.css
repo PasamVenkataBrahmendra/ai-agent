@@ -58,10 +58,12 @@ body {
 
 /* Chat Messages */
 .message-bot, .message-user {
-    padding: 10px 15px;
+    padding: 12px 15px;
     border-radius: 10px;
     max-width: 80%;
     margin-bottom: 10px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .message-bot {
@@ -74,6 +76,43 @@ body {
     background: #a0c4ff;
     color: white;
     align-self: flex-end;
+}
+
+/* Headings inside messages */
+.message-bot h3, .message-user h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+/* Code Blocks */
+.code-block {
+    background: #2d2d2d;
+    color: #f8f8f2;
+    padding: 10px;
+    border-radius: 8px;
+    font-family: monospace;
+    position: relative;
+    margin-top: 5px;
+    overflow-x: auto;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #444;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.copy-btn:hover {
+    background: #666;
 }
 
 /* Chatbot Footer */
@@ -104,7 +143,7 @@ body {
     border: none;
     padding: 12px;
     font-size: 14px;
-    width: 500px;
+    width: 100%;
     background: white;
     transition: border 0.3s;
     border-radius: 25px;
@@ -122,7 +161,6 @@ body {
     padding: 0 10px;
 }
 
-/* Control Buttons (File, Camera, Send) */
 .chatbot-controls button {
     background: white;
     border: none;
@@ -146,18 +184,6 @@ body {
 #file-input {
     display: none;
 }
-/* Chat Controls */
-.chatbot-controls {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 0 10px;
-}
-
-/* File Input (Hidden) */
-#file-input {
-    display: none;
-}
 
 /* Label for File Upload */
 .chatbot-controls label {
@@ -172,61 +198,6 @@ body {
 .chatbot-controls label:hover {
     background: cornflowerblue;
     color: white;
-}
-/* Responsive Design */
-@media screen and (max-width: 600px) {
-    .chatbot {
-        width: 100%;
-        height: 100vh;
-        border-radius: 0;
-        max-width: none;
-        max-height: none;
-    }
-
-    .chatbot-body {
-        padding: 5px;
-    }
-
-    .message-bot, .message-user {
-        font-size: 12px;
-        padding: 8px;
-    }
-
-    .chatbot-footer {
-        padding: 5px;
-    }
-
-    .message-input {
-        font-size: 14px;
-    }
-}
-/* Adjust input container for full width */
-.input-container {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    border-radius: 25px;
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background: white;
-}
-
-/* Make input field width dynamic */
-.message-input {
-    flex: 1;
-    min-height: 50px;
-    border: none;
-    padding: 12px;
-    font-size: 14px;
-    background: white;
-    transition: border 0.3s;
-    border-radius: 25px;
-    width: 100%; /* Make it full width */
-}
-
-.message-input:focus {
-    outline: none;
 }
 
 /* Responsive Design */
@@ -262,7 +233,7 @@ body {
 
     .message-input {
         font-size: 14px;
-        width: 100%; /* Full width input */
+        width: 100%;
     }
 
     .chatbot-controls {
