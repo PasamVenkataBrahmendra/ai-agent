@@ -16,6 +16,74 @@ body {
     padding: 20px;
 }
 
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    left: -250px;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #333;
+    color: white;
+    transition: left 0.3s ease-in-out;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 10px;
+    border-bottom: 1px solid #555;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar ul li:hover {
+    background-color: #555;
+}
+
+/* Close Button */
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+
+/* Menu Button */
+.menu-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: #333;
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1001;
+}
+
 /* Chatbot Container */
 .chatbot {
     width: 800px;
@@ -56,148 +124,12 @@ body {
     flex-direction: row;
 }
 
-/* Chat Messages */
-.message-bot, .message-user {
-    padding: 12px 15px;
-    border-radius: 10px;
-    max-width: 80%;
-    margin-bottom: 10px;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-}
-
-.message-bot {
-    background: #dfe8ff;
-    color: #2c3e50;
-    align-self: flex-start;
-}
-
-.message-user {
-    background: #a0c4ff;
-    color: white;
-    align-self: flex-end;
-}
-
-/* Headings inside messages */
-.message-bot h3, .message-user h3 {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-
-/* Code Blocks */
-.code-block {
-    background: #2d2d2d;
-    color: #f8f8f2;
-    padding: 10px;
-    border-radius: 8px;
-    font-family: monospace;
-    position: relative;
-    margin-top: 5px;
-    overflow-x: auto;
-}
-
-.copy-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: #444;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    font-size: 12px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background 0.3s;
-}
-
-.copy-btn:hover {
-    background: #666;
-}
-
 /* Chatbot Footer */
 .chatbot-footer {
     padding: 10px;
     background: #eef1ff;
     border-top: 1px solid #ddd;
     display: flex;
-}
-
-/* Input Container */
-.input-container {
-    position: relative;
-    flex: 1;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    border-radius: 25px;
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background: white;
-}
-
-/* Message Input */
-.message-input {
-    flex: 1;
-    min-height: 50px;
-    border: none;
-    padding: 12px;
-    font-size: 14px;
-    width: 100%;
-    background: white;
-    transition: border 0.3s;
-    border-radius: 25px;
-}
-
-.message-input:focus {
-    outline: none;
-}
-
-/* Chat Controls */
-.chatbot-controls {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 0 10px;
-}
-
-.chatbot-controls button {
-    background: white;
-    border: none;
-    padding: 8px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 18px;
-    transition: background 0.3s, color 0.3s;
-    color: cornflowerblue;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.chatbot-controls button:hover {
-    background: cornflowerblue;
-    color: white;
-}
-
-/* Hide File Input */
-#file-input {
-    display: none;
-}
-
-/* Label for File Upload */
-.chatbot-controls label {
-    cursor: pointer;
-    color: cornflowerblue;
-    font-size: 20px;
-    padding: 8px;
-    border-radius: 50%;
-    transition: background 0.3s, color 0.3s;
-}
-
-.chatbot-controls label:hover {
-    background: cornflowerblue;
-    color: white;
 }
 
 /* Responsive Design */
@@ -214,30 +146,10 @@ body {
         padding: 5px;
     }
 
-    .message-bot, .message-user {
-        font-size: 12px;
-        padding: 8px;
-    }
-
     .chatbot-footer {
         padding: 5px;
         display: flex;
         flex-direction: column;
-        gap: 5px;
-    }
-
-    .input-container {
-        width: 100%;
-        flex-direction: row;
-    }
-
-    .message-input {
-        font-size: 14px;
-        width: 100%;
-    }
-
-    .chatbot-controls {
-        display: flex;
         gap: 5px;
     }
 }
