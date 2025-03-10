@@ -4,13 +4,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const sendButton = document.querySelector(".chatbot-controls button[type='submit']");
     const fileInput = document.querySelector("#file-input");
     const cameraBtn = document.querySelector("#camera-btn");
-
+    const menuButton = document.querySelector(".menu-button");
+    const sidebar = document.querySelector(".sidebar");
+    
     const video = document.createElement("video");
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
     const API_KEY = "AIzaSyA4MEUO-_pJf_IZXQp_OkSJVczLYn6FrM4";
     const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+
+    menuButton.addEventListener("click", () => {
+        sidebar.classList.toggle("active");
+    });
 
     messageInput.addEventListener("input", function () {
         this.style.height = "40px";
@@ -59,34 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    cameraBtn.addEventListener("click", async function () {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-            video.srcObject = stream;
-            video.play();
-
-            const captureBtn = document.createElement("button");
-            captureBtn.textContent = "📸 Capture";
-            captureBtn.classList.add("capture-btn");
-            document.body.appendChild(captureBtn);
-
-            captureBtn.addEventListener("click", () => {
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-                const imageData = canvas.toDataURL("image/png");
-                analyzeImage(imageData);
-
-                stream.getTracks().forEach(track => track.stop());
-                document.body.removeChild(captureBtn);
-            });
-        } catch (error) {
-            console.error("Camera access denied:", error);
-            addMessage("🚫 Unable to access camera.", "bot");
-        }
-    });
-
     function addMessage(text, sender) {
         const messageDiv = document.createElement("div");
         messageDiv.classList.add("message", sender === "user" ? "message-user" : "message-bot");
@@ -115,37 +93,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't understand that. 🤖";
     }
 
-    async function analyzeImage(base64Image) {
-        try {
-            const response = await fetch(API_URL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ inline_data: { mime_type: "image/png", data: base64Image.split(",")[1] } }] }]
-                })
-            });
-            if (!response.ok) throw new Error("Failed to analyze image");
-            const data = await response.json();
-            addMessage(`📷 Image Analysis: ${data.candidates?.[0]?.content?.parts?.[0]?.text || "No text extracted."}`, "bot");
-        } catch (error) {
-            console.error("Error:", error);
-            addMessage("❌ Error analyzing image.", "bot");
-        }
+    function addChatHistory() {
+        const chatHistory = document.createElement("div");
+        chatHistory.classList.add("chat-history");
+        chatHistory.textContent = "📜 Chat History (Coming Soon)";
+        sidebar.appendChild(chatHistory);
     }
 
-    async function analyzeFileContent(fileContent, fileType) {
-        try {
-            const response = await fetch(API_URL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ contents: [{ parts: [{ text: fileContent }] }] })
-            });
-            if (!response.ok) throw new Error("Failed to analyze file");
-            const data = await response.json();
-            addMessage(`📂 File Analysis: ${data.candidates?.[0]?.content?.parts?.[0]?.text || "Couldn't extract information."}`, "bot");
-        } catch (error) {
-            console.error("Error:", error);
-            addMessage("❌ Error analyzing file.", "bot");
-        }
-    }
+    addChatHistory();
 });
